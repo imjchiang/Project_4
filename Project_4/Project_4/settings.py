@@ -76,12 +76,11 @@ WSGI_APPLICATION = 'Project_4.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_mongodb_engine',
+        'ENGINE': 'djongo',
         'NAME': "ride_or_share",
-        "USER": "imjchiang",
-        "PASSWORD": 5375,
-        "HOST": "mongodb://localhost:27017/",
-        "PORT": 8000
+        # "USER": "imjchiang",
+        # "PASSWORD": 5375,
+        # "HOST": "mongodb://imjchiang:5375@localhost:27017/ride_or_share"
     }
 }
 

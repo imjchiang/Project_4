@@ -37,6 +37,7 @@ def logout_view(request):
 def signup_view(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
+        print("HELLO HERE", form, "BYE THERE")
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -49,6 +50,7 @@ def signup_view(request):
 
 @login_required
 def profile(request, username):
+    print(User)
     return render(request, "profile.html", {"username": username})
 
 
