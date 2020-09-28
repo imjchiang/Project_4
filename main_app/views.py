@@ -8,6 +8,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 
 
+####################### USER #######################
+
 def login_view(request):
     if request.method == "POST":
         # try to log the user in
@@ -19,7 +21,7 @@ def login_view(request):
             if user is not None:
                 if user.is_active:
                     login(request, user) # login user by creating a session
-                    return HttpResponseRedirect("/user/" + u)
+                    return HttpResponseRedirect("/profile/" + u)
                 else:
                     print("The account has been disabled.")
             else:
@@ -30,7 +32,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect("/cats")
+    return HttpResponseRedirect("/")
 
 def signup_view(request):
     if request.method == "POST":
@@ -38,24 +40,31 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return HttpResponseRedirect("/user/" + str(user))
+            return HttpResponseRedirect("/profile/" + str(user))
         else:
             return HttpResponse("<h1>Try Again</h1>")
     else:
         form = UserCreationForm()
         return render(request, "signup.html", {"form": form})
 
+@login_required
+def profile(request, username):
+    return render(request, "profile.html", {"username": username})
+
+
 ####################### RIDER #######################
 
 # profile page for riders
-def rider_profile(request):
-    return render(request, "riders/profile.html")
+@login_required
+def rider_profile(request, username):
+    return render(request, "riders/profile.html", {"username": username})
 
 ####################### DRIVER #######################
 
 # profile page for drivers
-def driver_profile(request):
-    return render(request, "drivers/profile.html")
+@login_required
+def driver_profile(request, username):
+    return render(request, "drivers/profile.html", {"username": username})
 
 ####################### DEFAULT #######################
 
