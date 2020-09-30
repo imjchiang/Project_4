@@ -36,6 +36,11 @@ class MyUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+# class RiderForm(forms.Form):
+#     class Meta:
+#         model: Rider
+#         fields = [""]
     
 
 ####################### USER #######################
