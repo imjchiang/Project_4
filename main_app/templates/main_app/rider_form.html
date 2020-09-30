@@ -2,12 +2,16 @@
 
 {% block content %}
 
+    <h1>Would you like to sign up as a rider?</h1>
     <form action="" method="POST">
         {% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
-        <input type="submit" value="Submit!">
+        <input type="submit" value="Confirm">
+    </form>
+    <form action="/" method="GET">
+        <input type="submit" value="Cancel">
     </form>
 
 {% endblock %}
