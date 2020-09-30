@@ -15,6 +15,10 @@ class Rider(models.Model):
     def __str__(self):
         return self.name
 
+    # [possible alternative]
+    # def get_absolute_url(self):
+    #     return "/profile/{}/d".format(User.objects.get(pk = self.user_key))
+
 class Driver(models.Model):
     current_location = models.CharField(max_length = 50, default = "N/A")
     pickup_distance = models.IntegerField(default = 1)
@@ -36,9 +40,6 @@ class Driver(models.Model):
 
     def __str__(self):
         return self.name
-
-    # def get_absolute_url(self):
-    #     return "/profile/{}/d".format(User.objects.get(pk = self.user_key))
 
 class Review(models.Model):
     comment = models.TextField(max_length = 500)
