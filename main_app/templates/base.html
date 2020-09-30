@@ -8,9 +8,24 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+    <header>
+        {% if user.is_authenticated %}
+        <span><a href="/">Ride or Share</a></span>
+        <span> | </span>
+        <span><a href="{% url 'profile' user.username %}">Hello, {{ user.username }}!</a></span>
+        <span> | </span>
+        <span><a href="{% url 'logout' %}">Logout</a></span>
+        <span> | </span>
+        {% else %}
+        <span><a href="{% url 'login' %}">Login</a></span>
+        <span> | </span>
+        <span><a href="{% url 'signup' %}">SignUp</a></span>
+        {% endif %}
+    </header>
+
     {% block content %}
     {% endblock %}
-
+    <hr />
     <footer>All Rights Reserved, rideorshare 2020</footer>
 </body>
 </html>
