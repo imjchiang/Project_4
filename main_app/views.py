@@ -18,30 +18,28 @@ from .models import Rider, Driver
 
 ####################### FORMS #######################
 class MyUserCreationForm(UserCreationForm):
+    # set email to be a required part of the form
     email = forms.EmailField(required=True, label='Email')
 
+    # form creation with fields to be used
     class Meta:
         model = User
         fields = ["username", "first_name", "last_name", "email", "password1", "password2"]
 
+    # what to save in the form
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
         user.email = self.cleaned_data["email"]
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
 
+        # ensures no duplicate emails (username no duplicate is already included as default)
         if User.objects.filter(email=user.email).exists():
             raise ValidationError("Email has already been used. Please use a different one.")
         
         if commit:
             user.save()
         return user
-
-class RiderForm(forms.Form):
-    class Meta:
-        model: Rider
-        fields = ["current_location", "destination", "user_key"]
-    
 
 ####################### USER #######################
 
@@ -97,16 +95,23 @@ def profile(request, username):
 def rider_profile(request, username):
     return render(request, "riders/profile.html", {"username": username})
 
+# create a new rider
 class RiderCreate(CreateView):
     model = Rider
     fields = []
 
     def form_valid(self, form):
+        # get User object of the logged in account
         user = User.objects.get(pk = self.request.user.id)
         rider = form.save(commit = False)
+        # set user_key to the user object grabbed
         rider.user_key = user
+
+        # ensures there are no riders associated with the account
         if Rider.objects.filter(user_key_id = user.id).exists():
+            # don't register rider if there is alreadyy one registered
             raise ValidationError("You cannot create another Rider in your account.")
+        # register a new rider and redirect to profile page of rider
         else:
             rider.save()
             return HttpResponseRedirect("/profile/{}/r".format(self.request.user.username))
