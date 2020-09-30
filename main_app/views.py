@@ -99,15 +99,19 @@ def rider_profile(request, username):
 
 class RiderCreate(CreateView):
     model = Rider
-    exclude = "user_key"
-    # fields = "__all__"
+    fields = []
 
     def form_valid(self, form):
+        user = User.objects.get(pk = self.request.user.id)
         rider = form.save(commit = False)
-        rider.user_key = self.request.user.id
-        rider.save()
-        return super(RiderCreate, self).form_valid(form)
-        # return HttpResponseRedirect("/profile/{}/r".format(self.request.user.username))
+        rider.user_key = user
+        if Rider.objects.filter(user_key_id = user.id).exists():
+            raise ValidationError("You cannot create another Rider in your account.")
+        else:
+            rider.save()
+            return HttpResponseRedirect("/profile/{}/r".format(self.request.user.username))
+            # return super(RiderCreate, self).form_valid(form)
+        
 
 ####################### DRIVER #######################
 
