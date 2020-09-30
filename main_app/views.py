@@ -16,13 +16,13 @@ from django.core.exceptions import ValidationError
 from .models import Rider, Driver
 
 
-####################### USER #######################
+####################### FORMS #######################
 class MyUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, label='Email')
 
     class Meta:
         model = User
-        fields = ("username", "first_name", "last_name", "email", "password1", "password2")
+        fields = ["username", "first_name", "last_name", "email", "password1", "password2"]
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
@@ -36,6 +36,9 @@ class MyUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    
+
+####################### USER #######################
 
 def login_view(request):
     if request.method == "POST":
