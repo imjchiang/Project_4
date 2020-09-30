@@ -107,6 +107,7 @@ class RiderCreate(CreateView):
         rider.user_key = self.request.user.id
         rider.save()
         return super(RiderCreate, self).form_valid(form)
+        # return HttpResponseRedirect("/profile/{}/r".format(self.request.user.username))
 
 ####################### DRIVER #######################
 
