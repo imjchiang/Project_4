@@ -11,4 +11,5 @@ urlpatterns = [
     path("logout/", views.logout_view, name="logout"),
     path("signup/", views.signup_view, name="signup"),
     path("rider/create/", views.RiderCreate.as_view(), name="rider_create"),
+    path("driver/create/", views.DriverCreate.as_view(), name="driver_create"),
 ]
