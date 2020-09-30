@@ -37,10 +37,10 @@ class MyUserCreationForm(UserCreationForm):
             user.save()
         return user
 
-# class RiderForm(forms.Form):
-#     class Meta:
-#         model: Rider
-#         fields = [""]
+class RiderForm(forms.Form):
+    class Meta:
+        model: Rider
+        fields = ["current_location", "destination", "user_key"]
     
 
 ####################### USER #######################
@@ -84,7 +84,9 @@ def signup_view(request):
 
 @login_required
 def profile(request, username):
-    print(User.username)
+    # if Rider for the user exists, pass rider info.
+    # otherwise send rider form to profile page
+    # same thing for driver
     return render(request, "profile.html", {"username": username})
 
 
@@ -97,8 +99,14 @@ def rider_profile(request, username):
 
 class RiderCreate(CreateView):
     model = Rider
-    fields = "__all__"
-    success_url = "/profile/{}".format(User.username)
+    exclude = "user_key"
+    # fields = "__all__"
+
+    def form_valid(self, form):
+        rider = form.save(commit = False)
+        rider.user_key = self.request.user.id
+        rider.save()
+        return super(RiderCreate, self).form_valid(form)
 
 ####################### DRIVER #######################
 
