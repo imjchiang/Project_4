@@ -57,9 +57,9 @@ def login_view(request):
                     login(request, user) # login user by creating a session
                     return HttpResponseRedirect("/profile/" + u)
                 else:
-                    print("The account has been disabled.")
+                    raise ValidationError("The account has been disabled.")
             else:
-                print("The username and/or password is incorrect.")
+                raise ValidationError("The username and/or password is incorrect.")
     else:
         form = AuthenticationForm()
     return render(request, "login.html", {"form": form})
@@ -203,16 +203,22 @@ class DriverUpdate(UpdateView):
     fields = ["trip_distance", "rate", "rush_hour_rate", "vehicle_type", "vehicle_make", "vehicle_model", "vehicle_year", "vehicle_insured", "license_expiration"]
     
     def form_valid(self, form):
-        # get User object of the logged in account
-        user = User.objects.get(pk = self.request.user.id)
-        driver = form.save(commit=False)
-        if user.id == driver.pk:
-            driver.save()
-            return HttpResponseRedirect("/profile/{}/d".format(self.request.user.username))
-        raise ValidationError("You cannot update a different User's driver account.")
-
+        if self.request.user.id:
+            # get User object of the logged in account
+            user = User.objects.get(pk = self.request.user.id)
+            driver = form.save(commit=False)
+            if user.id == driver.pk:
+                driver.save()
+                return HttpResponseRedirect("/profile/{}/d".format(self.request.user.username))
+            raise ValidationError("You cannot update a different User's driver account.")
+        else:
+            raise ValidationError("You cannot update a different User's driver account.")
 
 ####################### RIDE #######################
+
+def show_ride(request, pk):
+    ride = Ride.objects.get(pk = pk)
+    return render(request, "show_ride.html", {"ride": ride})
 
 class RideCreate(CreateView):
     model = Ride
@@ -222,11 +228,24 @@ class RideCreate(CreateView):
         # get User object of the logged in account
         user = User.objects.get(pk = self.request.user.id)
         ride = form.save(commit = False)
-        if user.id:
+        if (user and user.id):
             ride.rider_key = user
             ride.save()
             return HttpResponseRedirect("/ride/{}".format(ride.pk))
         raise ValidationError("Must be logged in to request a ride.")
+
+class RideUpdate(UpdateView):
+    model = Ride
+    fields = ["start_location", "destination"]
+
+    def form_valid(self, form):
+        # get User object of the logged in account
+        user = User.objects.get(pk = self.request.user.id)
+        ride = form.save(commit = False)
+        if (user and user.id == ride.rider_key):
+            ride.save()
+            return HttpResponseRedirect("/ride/{}".format(ride.pk))
+        raise ValidationError("Must be logged in to the right account to update your ride.")
 
 
 ####################### DEFAULT #######################
