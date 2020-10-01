@@ -24,7 +24,7 @@ class MyUserCreationForm(UserCreationForm):
     # form creation with fields to be used
     class Meta:
         model = User
-        fields = ["username", "first_name", "last_name", "email", "password1", "password2"]
+        fields = ["username", "first_name", "last_name", "email"]
 
     # what to save in the form
     def save(self, commit=True):
@@ -32,6 +32,7 @@ class MyUserCreationForm(UserCreationForm):
         user.email = self.cleaned_data["email"]
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
+        user.set_password(self.cleaned_data["password1"])
 
         # ensures no duplicate emails (username no duplicate is already included as default)
         if User.objects.filter(email=user.email).exists():
@@ -61,7 +62,7 @@ def login_view(request):
                 print("The username and/or password is incorrect.")
     else:
         form = AuthenticationForm()
-        return render(request, "login.html", {"form": form})
+    return render(request, "login.html", {"form": form})
 
 def logout_view(request):
     logout(request)
