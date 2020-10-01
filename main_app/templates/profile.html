@@ -2,27 +2,38 @@
 
 {% block content %}
 
-    <h1>{{ username }}'s Profile</h1>
+    <h1>{{ profile_user.first_name }} {{ profile_user.last_name }}'s Profile</h1>
     <hr />
 
-    {% if rider_register %}
-        <form action="/profile/{{ username }}/r" method="GET">
-            <input type="submit" value="See Rider Profile">
-        </form>
-    {% else %}
-        <form action="/rider/create" method="GET">
-            <input type="submit" value="Setup Rider Profile">
-        </form>
-    {% endif %}
+    <h3>All About {{ profile_user.first_name }}</h3>
+    <p>First Name: {{ profile_user.first_name }}</p>
+    <p>Last Name: {{ profile_user.last_name }}</p>
+    <p>Username: {{ profile_user.username }}</p>
+    <p>Email: {{ profile_user.email }}</p>
+    
 
-    {% if driver_register %}
-        <form action="/profile/{{ username }}/d" method="GET">
-            <input type="submit" value="See Driver Profile">
-        </form>
-    {% else %}
-        <form action="/driver/create" method="GET">
-            <input type="submit" value="Setup Driver Profile">
-        </form>
+    {% if personal_profile %}
+    
+        {% if rider_register %}
+            <form action="/profile/{{ username }}/r" method="GET">
+                <input type="submit" value="See Rider Profile">
+            </form>
+        {% else %}
+            <form action="/rider/create" method="GET">
+                <input type="submit" value="Setup Rider Profile">
+            </form>
+        {% endif %}
+
+        {% if driver_register %}
+            <form action="/profile/{{ username }}/d" method="GET">
+                <input type="submit" value="See Driver Profile">
+            </form>
+        {% else %}
+            <form action="/driver/create" method="GET">
+                <input type="submit" value="Setup Driver Profile">
+            </form>
+        {% endif %}
+
     {% endif %}
 
 {% endblock %}
