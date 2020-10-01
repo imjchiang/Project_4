@@ -1,7 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h1>{{ username }}'s Driver Profile</h1>
+    <h1>{{ profile_user.first_name }} {{ profile_user.last_name }}'s Driver Profile</h1>
+                
     <hr />
+
+    <h2>{{ profile_user.first_name }}'s Info</h2>
+    <p>First Name: {{ profile_user.first_name }}</p>
+    <p>Last Name: {{ profile_user.last_name }}</p>
+    <p>Username: {{ profile_user.username }}</p>
+    <p>Email: {{ profile_user.email }}</p>
+
+    <hr />
+
+    <h2>{{ profile_user.first_name }}'s Stats</h2>
+    <p>Safety Rating: {{ driver_prof.safety_rating }}</p>
+    <p>Service Rating: {{ driver_prof.service_rating }}</p>
+    <p>Time Rating: {{ driver_prof.time_rating }}</p>
+    <p>Total Trips: {{ driver_prof.total_trips }}</p>
+    <p>No Shows: {{ driver_prof.no_show }}</p>
+    
+    <hr />
+
+    <h2>{{ profile_user.first_name }}'s Vehicle and License Info</h2>
+    <p>License Expiration Date: {{ driver_prof.license_expiration }}</p>
+    <p>Vehicle Type: {{ driver_prof.vehicle_type }}</p>
+    <p>Vehicle Make: {{ driver_prof.vehicle_make }}</p>
+    <p>Vehicle Model: {{ driver_prof.vehicle_model }}</p>
+    <p>Vehicle Year: {{ driver_prof.vehicle_year }}</p>
+    {% if driver_prof.vehicle_make %}
+        <p>Vehicle Insurance Coverage Status: Covered</p>
+    {% else %}
+        <p>Vehicle Insurance Coverage Status: Not Covered</p>
+    {% endif %}
+
+    <hr />
+
+    <h2>Rides Given</h2>
+    <!-- List of rides here, need to send data from views also -->
+
+    {% if personal_profile %}
+        
+    {% endif %}
 
 {% endblock %}

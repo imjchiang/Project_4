@@ -18,7 +18,7 @@
         <h2>See Rider and Driver Info</h2>
     
         {% if rider_register %}
-            <form action="/profile/{{ username }}/r" method="GET">
+            <form action="/profile/{{ profile_user.username }}/r" method="GET">
                 <input type="submit" value="See Rider Profile">
             </form>
         {% else %}
@@ -28,7 +28,7 @@
         {% endif %}
 
         {% if driver_register %}
-            <form action="/profile/{{ username }}/d" method="GET">
+            <form action="/profile/{{ profile_user.username }}/d" method="GET">
                 <input type="submit" value="See Driver Profile">
             </form>
         {% else %}
