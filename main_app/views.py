@@ -216,6 +216,10 @@ class DriverUpdate(UpdateView):
 
 ####################### RIDE #######################
 
+def all_rides(request):
+    rides = Ride.objects.all()
+    return render(request, "rides/rides.html", {"rides": rides})
+
 def show_ride(request, pk):
     ride = Ride.objects.get(pk = pk)
     rider = User.objects.get(pk = ride.rider_key.pk)
@@ -236,7 +240,7 @@ def show_ride(request, pk):
     else:
         ride_update = False
 
-    return render(request, "show_ride.html", {"ride": ride, "ride_update": ride_update, "rider": rider, "driver": driver, "signed_in_user": signed_in_user})
+    return render(request, "rides/show_ride.html", {"ride": ride, "ride_update": ride_update, "rider": rider, "driver": driver, "signed_in_user": signed_in_user})
 
 @login_required
 def driver_ride(request, pk):

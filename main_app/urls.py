@@ -13,6 +13,7 @@ urlpatterns = [
     path("rider/create/", views.RiderCreate.as_view(), name="rider_create"),
     path("driver/create/", views.DriverCreate.as_view(), name="driver_create"),
     path("driver/update/<int:pk>/", views.DriverUpdate.as_view(), name="driver_update"),
+    path("rides/", views.all_rides, name="all_rides"),
     path("ride/<int:pk>/", views.show_ride, name="show_ride"),
     path("ride/create/", views.RideCreate.as_view(), name="ride_create"),
     path("ride/update/<int:pk>/", views.RideUpdate.as_view(), name="ride_update"),
