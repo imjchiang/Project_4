@@ -218,7 +218,19 @@ class DriverUpdate(UpdateView):
 
 def show_ride(request, pk):
     ride = Ride.objects.get(pk = pk)
-    return render(request, "show_ride.html", {"ride": ride})
+    rider = User.objects.get(pk = ride.rider_key.pk)
+
+    if ride.driver_key == None:
+        driver = None
+    else:
+        driver = User.objects.get(pk = ride.driver_key)
+
+    if ride.rider_key.pk == request.user.id:
+        ride_update = True
+    else:
+        ride_update = False
+
+    return render(request, "show_ride.html", {"ride": ride, "ride_update": ride_update, "rider": rider, "driver": driver})
 
 class RideCreate(CreateView):
     model = Ride
