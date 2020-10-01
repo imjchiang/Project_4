@@ -178,7 +178,6 @@ class DriverCreate(CreateView):
         form.fields["vehicle_make"].required = True
         form.fields["vehicle_model"].required = True
         form.fields["vehicle_year"].required = True
-        form.fields["vehicle_insured"].required = True
         form.fields["license_expiration"].required = True
         
         return form
@@ -198,6 +197,19 @@ class DriverCreate(CreateView):
         else:
             driver.save()
             return HttpResponseRedirect("/profile/{}/d".format(self.request.user.username))
+
+class DriverUpdate(UpdateView):
+    model = Driver
+    fields = ["trip_distance", "rate", "rush_hour_rate", "vehicle_type", "vehicle_make", "vehicle_model", "vehicle_year", "vehicle_insured", "license_expiration"]
+    
+    def form_valid(self, form):
+        # get User object of the logged in account
+        user = User.objects.get(pk = self.request.user.id)
+        driver = form.save(commit=False)
+        if user.id == driver.pk:
+            driver.save()
+            return HttpResponseRedirect("/profile/{}/d".format(self.request.user.username))
+        raise ValidationError("You cannot update a different User's driver account.")
 
 ####################### DEFAULT #######################
 
