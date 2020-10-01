@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 
 from django.core.exceptions import ValidationError
 
-from .models import Rider, Driver
+from .models import Rider, Driver, Ride
 
 
 ####################### FORMS #######################
@@ -210,6 +210,24 @@ class DriverUpdate(UpdateView):
             driver.save()
             return HttpResponseRedirect("/profile/{}/d".format(self.request.user.username))
         raise ValidationError("You cannot update a different User's driver account.")
+
+
+####################### RIDE #######################
+
+class RideCreate(CreateView):
+    model = Ride
+    fields = ["start_location", "destination"]
+
+    def form_valid(self, form):
+        # get User object of the logged in account
+        user = User.objects.get(pk = self.request.user.id)
+        ride = form.save(commit = False)
+        if user.id:
+            ride.rider_key = user
+            ride.save()
+            return HttpResponseRedirect("/ride/{}".format(ride.pk))
+        raise ValidationError("Must be logged in to request a ride.")
+
 
 ####################### DEFAULT #######################
 
