@@ -112,6 +112,7 @@ def profile(request, username):
 @login_required
 def rider_profile(request, username):
     profile_user = User.objects.get(username = username)
+    rider_prof = Rider.objects.get(user_key = profile_user.id)
     user = User.objects.get(pk = request.user.id)
 
     # if someone is accessing their own profile
@@ -120,7 +121,7 @@ def rider_profile(request, username):
     else:
         personal_profile = False
 
-    return render(request, "riders/profile.html", {"profile_user": profile_user, "personal_profile": personal_profile})
+    return render(request, "riders/profile.html", {"profile_user": profile_user, "rider_prof": rider_prof, "personal_profile": personal_profile})
 
 # create a new rider
 class RiderCreate(CreateView):
@@ -151,6 +152,7 @@ class RiderCreate(CreateView):
 @login_required
 def driver_profile(request, username):
     profile_user = User.objects.get(username = username)
+    driver_prof = Driver.objects.get(user_key = profile_user.id)
     user = User.objects.get(pk = request.user.id)
 
     # if someone is accessing their own profile
@@ -159,7 +161,7 @@ def driver_profile(request, username):
     else:
         personal_profile = False
         
-    return render(request, "drivers/profile.html", {"profile_user": profile_user, "personal_profile": personal_profile})
+    return render(request, "drivers/profile.html", {"profile_user": profile_user, "driver_prof": driver_prof, "personal_profile": personal_profile})
 
 # create a new rider
 class DriverCreate(CreateView):
