@@ -5,4 +5,24 @@
     <h1>{{ username }}'s Profile</h1>
     <hr />
 
+    {% if rider_register %}
+        <form action="/profile/{{ username }}/r" method="GET">
+            <input type="submit" value="See Rider Profile">
+        </form>
+    {% else %}
+        <form action="/rider/create" method="GET">
+            <input type="submit" value="Setup Rider Profile">
+        </form>
+    {% endif %}
+
+    {% if driver_register %}
+        <form action="/profile/{{ username }}/d" method="GET">
+            <input type="submit" value="See Driver Profile">
+        </form>
+    {% else %}
+        <form action="/driver/create" method="GET">
+            <input type="submit" value="Setup Driver Profile">
+        </form>
+    {% endif %}
+
 {% endblock %}
