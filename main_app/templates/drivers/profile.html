@@ -34,15 +34,13 @@
         <p>Vehicle Insurance Coverage Status: Not Covered</p>
     {% endif %}
 
-    <a href="{% url "driver_update" driver_prof.id %}">Update Details</a>
-
+    {% if personal_profile %}
+        <a href="{% url "driver_update" driver_prof.id %}">Update Details</a>
+    {% endif %}
+    
     <hr />
-
+    
     <h2>Rides Given</h2>
     <!-- List of rides here, need to send data from views also -->
-
-    {% if personal_profile %}
-        
-    {% endif %}
 
 {% endblock %}
