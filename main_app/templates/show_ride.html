@@ -4,8 +4,28 @@
     <h1>Ride or Share</h1>
     <hr />
 
+    <h2>Ride Info</h2>
+
+    <p>Rider: {{ rider.first_name }}</p>
     <p>Pickup Location: {{ ride.start_location }}</p>
     <p>Destination: {{ ride.destination }}</p>
-    <p>accept, update, or remove rides here</p>
+    {% if driver == None %}
+        <p>Driver: NO DRIVER YET</p>
+    {% else %}
+        <p>Driver: {{ driver.first_name }}</p>
+    {% endif %}
+
+    <hr />
+
+    <h2>Update Ride</h2>
+    {% if ride_update and ride.driver_key == None %}
+        <form action="/ride/update/{{ ride.pk }}">
+            <input type="submit" value="Update Ride Details">
+        </form>
+    {% elif ride_update %}
+        <p>You cannot update ride as the driver has already accepted the ride.</p>
+    {% elif ride_update == False %}
+        <p>Please sign in to alter ride details.</p>
+    {% endif %}
 
 {% endblock %}
