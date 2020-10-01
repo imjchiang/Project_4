@@ -220,6 +220,12 @@ def show_ride(request, pk):
     ride = Ride.objects.get(pk = pk)
     rider = User.objects.get(pk = ride.rider_key.pk)
 
+    if request.user:
+        signed_in_user = request.user
+    else:
+        signed_in_user = None
+
+
     if ride.driver_key == None:
         driver = None
     else:
@@ -230,7 +236,17 @@ def show_ride(request, pk):
     else:
         ride_update = False
 
-    return render(request, "show_ride.html", {"ride": ride, "ride_update": ride_update, "rider": rider, "driver": driver})
+    return render(request, "show_ride.html", {"ride": ride, "ride_update": ride_update, "rider": rider, "driver": driver, "signed_in_user": signed_in_user})
+
+@login_required
+def driver_ride(request, pk):
+    ride = Ride.objects.get(pk = pk)
+
+    if ride.driver_key == None:
+        Ride.objects.filter(pk = pk).update(driver_key = request.user.id)
+        return HttpResponseRedirect("/ride/{}".format(pk))
+    else:
+        raise ValidationError("There is already a driver for this ride.")
 
 class RideCreate(CreateView):
     model = Ride
