@@ -28,11 +28,13 @@
     <p>Vehicle Make: {{ driver_prof.vehicle_make }}</p>
     <p>Vehicle Model: {{ driver_prof.vehicle_model }}</p>
     <p>Vehicle Year: {{ driver_prof.vehicle_year }}</p>
-    {% if driver_prof.vehicle_make %}
+    {% if driver_prof.vehicle_insured %}
         <p>Vehicle Insurance Coverage Status: Covered</p>
     {% else %}
         <p>Vehicle Insurance Coverage Status: Not Covered</p>
     {% endif %}
+
+    <a href="{% url "driver_update" driver_prof.id %}">Update Details</a>
 
     <hr />
 
