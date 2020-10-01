@@ -82,7 +82,14 @@ def signup_view(request):
 
 @login_required
 def profile(request, username):
-    user = User.objects.get(username = username)
+    profile_user = User.objects.get(username = username)
+    user = User.objects.get(pk = request.user.id)
+
+    # if someone is accessing their own profile
+    if user.username == username:
+        personal_profile = True
+    else:
+        personal_profile = False
     # if Rider for the user exists, pass parameter to rider profile redirect
     if Rider.objects.filter(user_key_id = user.id).exists():
         rider_register = True
@@ -96,7 +103,7 @@ def profile(request, username):
     # otherwise profile page redirect to driver form
     else: 
         driver_register = False
-    return render(request, "profile.html", {"username": username, "rider_register": rider_register, "driver_register": driver_register})
+    return render(request, "profile.html", {"profile_user": profile_user, "rider_register": rider_register, "driver_register": driver_register, "personal_profile": personal_profile})
 
 
 ####################### RIDER #######################
