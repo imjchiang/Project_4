@@ -5,8 +5,8 @@ from datetime import datetime, date
 
 # Create your models here.
 class Rider(models.Model):
-    current_location = models.CharField(max_length = 50, default = "N/A")
-    destination = models.CharField(max_length = 50, default = "N/A")
+    current_location = models.CharField(max_length = 300, default = "N/A")
+    destination = models.CharField(max_length = 300, default = "N/A")
     total_trips = models.IntegerField(default = 0)
     rating = models.IntegerField(default = None)
     no_show = models.IntegerField(default = 0)
@@ -20,7 +20,7 @@ class Rider(models.Model):
     #     return "/profile/{}/d".format(User.objects.get(pk = self.user_key))
 
 class Driver(models.Model):
-    current_location = models.CharField(max_length = 50, default = "N/A")
+    current_location = models.CharField(max_length = 300, default = "N/A")
     pickup_distance = models.IntegerField(default = 1)
     trip_distance = models.IntegerField(default = 0)
     rate = models.IntegerField(default = 1)
@@ -40,6 +40,13 @@ class Driver(models.Model):
 
     def __str__(self):
         return self.name
+
+class Ride(models.Model):
+    start_location = models.CharField(max_length = 300, default = "N/A")
+    destination = models.CharField(max_length = 300, default = "N/A")
+    reviewed = models.BooleanField(default = False)
+    driver_key = models.IntegerField(default = None)
+    rider_key = models.ForeignKey(User, on_delete = models.CASCADE)
 
 class Review(models.Model):
     comment = models.TextField(max_length = 500)
