@@ -3,16 +3,19 @@
 {% block content %}
 
     <h1>{{ profile_user.first_name }} {{ profile_user.last_name }}'s Profile</h1>
+    
     <hr />
 
-    <h3>All About {{ profile_user.first_name }}</h3>
+    <h2>All About {{ profile_user.first_name }}</h2>
     <p>First Name: {{ profile_user.first_name }}</p>
     <p>Last Name: {{ profile_user.last_name }}</p>
     <p>Username: {{ profile_user.username }}</p>
     <p>Email: {{ profile_user.email }}</p>
     
-
     {% if personal_profile %}
+
+        <hr />
+        <h2>See Rider and Driver Stats</h2>
     
         {% if rider_register %}
             <form action="/profile/{{ username }}/r" method="GET">
