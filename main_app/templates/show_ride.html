@@ -11,6 +11,12 @@
     <p>Destination: {{ ride.destination }}</p>
     {% if driver == None %}
         <p>Driver: NO DRIVER YET</p>
+
+        {% if signed_in_user != None %}
+            <form action="/ride/driverupdate/{{ ride.pk }}">
+                <input type="submit" value="Drive for this Ride">
+            </form>
+        {% endif %}
     {% else %}
         <p>Driver: {{ driver.first_name }}</p>
     {% endif %}
