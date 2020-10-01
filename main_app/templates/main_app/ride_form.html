@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Get a Ride!</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Confirm">
+    </form>
+    <form action="/" method="GET">
+        <input type="submit" value="Cancel">
+    </form>
+
+{% endblock %}
