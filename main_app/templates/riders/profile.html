@@ -1,7 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h1>{{ username }}'s Rider Profile</h1>
+    <h1>{{ profile_user.first_name }} {{ profile_user.last_name }}'s Rider Profile</h1>
+            
     <hr />
+
+    <h2>{{ profile_user.first_name }}'s Info</h2>
+    <p>First Name: {{ profile_user.first_name }}</p>
+    <p>Last Name: {{ profile_user.last_name }}</p>
+    <p>Username: {{ profile_user.username }}</p>
+    <p>Email: {{ profile_user.email }}</p>
+
+    <hr />
+
+    <h2>{{ profile_user.first_name }}'s Stats</h2>
+    <p>Rating: {{ profile_user.rating }}</p>
+    <p>No Shows: {{ profile_user.no_show }}</p>
+    <p>Total Trips: {{ profile_user.total_trips }}</p>
+
+    <hr />
+
+    <h2>Rides Taken</h2>
+    <!-- List of rides here, need to send data from views also -->
+
+    {% if personal_profile %}
+        
+    {% endif %}
 
 {% endblock %}
