@@ -116,12 +116,13 @@ footer
 {
     display: flex;
     justify-content: center;
-    /* max-width: 60%; */
+    width: 50vw;
+    margin-left: 24vw;
 }
 
 .ride-cards>div
 {
-    min-width: 10vw;
+    width: fit-content;
     margin: 0.5vw 1vw 0.5vw 1vw;
     background-color: rgb(168, 248, 228);
 }

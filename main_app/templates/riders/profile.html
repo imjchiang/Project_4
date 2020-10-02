@@ -26,7 +26,7 @@
 
     {% if rider_prof.total_trips > 0 %}
         <h2>Rides Taken</h2>
-        <div class="ride-cards">
+        <div class="ride-cards row">
             {% for each_ride in taken_rides %}
                 <div class="card text-white mb-3" style="max-width: 18rem;">
                     <a class="ride" href="/ride/{{ each_ride.pk }}">
@@ -50,7 +50,7 @@
 
     {% if pending_rides %}
         <h2>Pending Rides</h2>
-        <div class="ride-cards">
+        <div class="ride-cards row">
             {% for each_ride in pending_rides %}
                 <div class="card text-white mb-3" style="max-width: 18rem;">
                     <a class="ride" href="/ride/{{ each_ride.pk }}">
