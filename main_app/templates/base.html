@@ -12,18 +12,18 @@
     <header>
         <br>
         {% if user.is_authenticated %}
-        <span><a href="/">Home</a></span>
+        <span><a class="nav-text" href="/">Home</a></span>
         <span> | </span>
-        <span><a href="/rides">All Rides</a></span>
+        <span><a class="nav-text" href="/rides">All Rides</a></span>
         <span> | </span>
-        <span><a href="{% url 'profile' user.username %}">{{ user.username }}'s Profile</a></span>
+        <span><a class="nav-text" href="{% url 'profile' user.username %}">{{ user.username }}'s Profile</a></span>
         <span> | </span>
-        <span><a href="{% url 'logout' %}">Logout</a></span>
+        <span><a class="nav-text" href="{% url 'logout' %}">Logout</a></span>
         <span> | </span>
         {% else %}
-        <span><a href="{% url 'login' %}">Login</a></span>
+        <span><a class="nav-text" href="{% url 'login' %}">Login</a></span>
         <span> | </span>
-        <span><a href="{% url 'signup' %}">SignUp</a></span>
+        <span><a class="nav-text" href="{% url 'signup' %}">SignUp</a></span>
         {% endif %}
     </header>
 

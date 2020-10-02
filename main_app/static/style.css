@@ -25,6 +25,11 @@ a
     color: rgb(252, 179, 96);
 }
 
+a.nav-text
+{
+    text-shadow: 0.12vw 0.12vw white;
+}
+
 a:hover
 {
     text-decoration: none;
