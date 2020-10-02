@@ -123,6 +123,7 @@ def rider_profile(request, username):
     total_rides = 0
     for each_ride in all_rides:
         # if each_ride.pickup_time < datetime.now():
+        if each_ride.driver_key != None:
             total_rides += 1
 
     Rider.objects.filter(user_key = profile_user).update(total_trips = total_rides)
@@ -165,6 +166,14 @@ def driver_profile(request, username):
     profile_user = User.objects.get(username = username)
     driver_prof = Driver.objects.get(user_key = profile_user.id)
     user = User.objects.get(pk = request.user.id)
+
+    all_rides = Ride.objects.filter(driver_key = profile_user.id)
+    total_rides = 0
+    for each_ride in all_rides:
+        # if each_ride.pickup_time < datetime.now():
+            total_rides += 1
+
+    Driver.objects.filter(user_key = profile_user).update(total_trips = total_rides)
 
     # if someone is accessing their own profile
     if user.username == username:
@@ -229,8 +238,8 @@ class DriverUpdate(UpdateView):
 def all_rides(request):
     rides = Ride.objects.all()
     users = User.objects.all()
-    current_time = datetime.datetime.now()
-    return render(request, "rides/rides.html", {"rides": rides, "users": users, "current_time": current_time})
+    # current_time = datetime.datetime.now()
+    return render(request, "rides/rides.html", {"rides": rides, "users": users})
 
 def show_ride(request, pk):
     ride = Ride.objects.get(pk = pk)
