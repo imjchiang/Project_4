@@ -39,7 +39,9 @@
     {% endif %}
 
     {% if personal_profile %}
-        <a href="{% url "driver_update" driver_prof.id %}">Update Details</a>
+        <form action="/driver/update/{{ driver_prof.id }}">
+            <input type="submit" value="Update Details">
+        </form>
     {% endif %}
     
     <br /><br /><br />
