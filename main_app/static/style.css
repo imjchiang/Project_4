@@ -60,6 +60,15 @@ p
     font-size: 0.85vw;
 }
 
+label
+{
+    font-size: 1.3vw;
+    color: rgb(253, 190, 74);
+    text-shadow: 0.2vw 0.2vw white;
+
+    margin-right: 0.7vw;
+}
+
 input
 {
     margin-bottom: 1vw;
