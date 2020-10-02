@@ -1,9 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+body
+{
+    text-align: center;
+    font-family: "Comfortaa", sans-serif;
+
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-image: url("roadtrip_with_city2.jpg");
+    background-position: 0;
+}
+
+span
+{
+    font-size: 1.2vw;
+    color: rgb(0, 179, 192);
+    padding: 0.8vw;
+}
+
+a
+{
+    text-decoration: none;
+    color: rgb(252, 179, 96);
+}
+
+a:hover
+{
+    color: rgb(255, 123, 0);
+    text-shadow: 0.12vw 0.12vw white;
+}
+
+hr
+{
+    width: 70vw;
+}
+
 h1
 {
-    color: blue;
+    color: rgb(0, 179, 192);
+    font-size: 3.5vw;
+    text-shadow: 0.3vw 0.3vw white;
+
+    margin-bottom: 1vw;
 }
 
 h2
 {
-    color: aqua;
+    color: rgb(255, 196, 108);
+    font-size: 2vw;
+    text-shadow: 0.2vw 0.2vw white;
+
+    margin-bottom: 1.2vw;
+}
+
+p
+{
+    color: rgb(158, 158, 158);
+    font-size: 0.85vw;
+}
+
+input
+{
+    margin-bottom: 1vw;
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+
+    width: fit-content;
+    font-size: 1vw;
+    
+    color: rgb(241, 250, 123);
+    background-color: rgb(168, 248, 228);
+    border-color: rgb(164, 255, 240);
+}
+
+footer
+{
+    color: rgb(196, 196, 196);
 }
