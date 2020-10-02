@@ -7,6 +7,8 @@
     <h2>Ride Info</h2>
 
     <p>Rider: {{ rider.first_name }}</p>
+    <p>Max Price: ${{ ride.price_cap }}</p>
+    <p>Pickup Time: {{ ride.pickup_time }}</p>
     <p>Pickup Location: {{ ride.start_location }}</p>
     <p>Destination: {{ ride.destination }}</p>
     {% if driver == None %}
@@ -23,13 +25,16 @@
 
     <hr />
 
-    <h2>Update Ride</h2>
+    <h2>Update or Cancel Your Ride</h2>
     {% if ride_update and ride.driver_key == None %}
         <form action="/ride/update/{{ ride.pk }}">
             <input type="submit" value="Update Ride Details">
         </form>
+        <form action="/ride/delete/{{ ride.pk }}">
+            <input type="submit" value="Cancel Your Ride">
+        </form>
     {% elif ride_update %}
-        <p>You cannot update ride as the driver has already accepted the ride.</p>
+        <p>You cannot update or delete the ride as the driver has already accepted the ride.</p>
     {% elif ride_update == False %}
         <p>Please sign in to alter ride details.</p>
     {% endif %}
