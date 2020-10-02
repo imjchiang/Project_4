@@ -121,10 +121,15 @@ def rider_profile(request, username):
 
     all_rides = Ride.objects.filter(rider_key = profile_user)
     total_rides = 0
+    pending_rides = []
+    taken_rides = []
     for each_ride in all_rides:
         # if each_ride.pickup_time < datetime.now():
         if each_ride.driver_key != None:
             total_rides += 1
+            taken_rides.append(each_ride)
+        else:
+            pending_rides.append(each_ride)
 
     Rider.objects.filter(user_key = profile_user).update(total_trips = total_rides)
 
@@ -134,7 +139,7 @@ def rider_profile(request, username):
     else:
         personal_profile = False
 
-    return render(request, "riders/profile.html", {"profile_user": profile_user, "rider_prof": rider_prof, "personal_profile": personal_profile})
+    return render(request, "riders/profile.html", {"profile_user": profile_user, "rider_prof": rider_prof, "personal_profile": personal_profile, "pending_rides": pending_rides, "taken_rides": taken_rides})
 
 # create a new rider
 class RiderCreate(CreateView):

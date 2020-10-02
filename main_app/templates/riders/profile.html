@@ -20,11 +20,37 @@
 
     <hr />
 
-    <h2>Rides Taken</h2>
-    <!-- List of rides here, need to send data from views also -->
+    {% if rider_prof.total_trips > 0 %}
+        <h2>Rides Taken</h2>
+        {% for each_ride in taken_rides %}
+            <a href="/ride/{{ each_ride.pk }}">
+                {{ each_ride.pickup_time }}
+            </a>
+            {% if each_ride.driver_key == None %}
+                <p>Status: Need a Driver</p>
+            {% elif each_ride.pickup_time <= current_time %}
+                <p>Status: Completed</p>
+            {% elif each_ride.driver_key != None %}
+                <p>Status: Driver Found</p>
+            {% endif %}
+        {% endfor %}
+        <hr />
+    {% endif %}
 
-    {% if personal_profile %}
-        
+    {% if pending_rides %}
+        <h2>Pending Rides</h2>
+        {% for each_ride in pending_rides %}
+            <a href="/ride/{{ each_ride.pk }}">
+                {{ each_ride.pickup_time }}
+            </a>
+            {% if each_ride.driver_key == None %}
+                <p>Status: Need a Driver</p>
+            {% elif each_ride.pickup_time <= current_time %}
+                <p>Status: Completed</p>
+            {% elif each_ride.driver_key != None %}
+                <p>Status: Driver Found</p>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 
 {% endblock %}
