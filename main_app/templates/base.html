@@ -9,8 +9,9 @@
 </head>
 <body>
     <header>
+        <br>
         {% if user.is_authenticated %}
-        <span><a href="/">Ride or Share</a></span>
+        <span><a href="/">Home</a></span>
         <span> | </span>
         <span><a href="/rides">All Rides</a></span>
         <span> | </span>
@@ -28,6 +29,8 @@
     {% block content %}
     {% endblock %}
     <hr />
+    <br />
     <footer>All Rights Reserved, rideorshare 2020</footer>
+    <br /><br /><br />
 </body>
 </html>
