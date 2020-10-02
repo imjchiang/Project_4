@@ -174,9 +174,11 @@ def driver_profile(request, username):
 
     all_rides = Ride.objects.filter(driver_key = profile_user.id)
     total_rides = 0
+    given_rides = []
     for each_ride in all_rides:
         # if each_ride.pickup_time < datetime.now():
             total_rides += 1
+            given_rides.append(each_ride)
 
     Driver.objects.filter(user_key = profile_user).update(total_trips = total_rides)
 
@@ -186,7 +188,7 @@ def driver_profile(request, username):
     else:
         personal_profile = False
         
-    return render(request, "drivers/profile.html", {"profile_user": profile_user, "driver_prof": driver_prof, "personal_profile": personal_profile})
+    return render(request, "drivers/profile.html", {"profile_user": profile_user, "driver_prof": driver_prof, "personal_profile": personal_profile, "given_rides": given_rides})
 
 # create a new rider
 class DriverCreate(CreateView):
