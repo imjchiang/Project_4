@@ -258,7 +258,7 @@ def driver_ride(request, pk):
 
 class RideCreate(CreateView):
     model = Ride
-    fields = ["start_location", "destination"]
+    fields = ["start_location", "destination", "pickup_time", "price_cap"]
 
     def form_valid(self, form):
         # get User object of the logged in account
@@ -272,7 +272,7 @@ class RideCreate(CreateView):
 
 class RideUpdate(UpdateView):
     model = Ride
-    fields = ["start_location", "destination"]
+    fields = ["start_location", "destination", "pickup_time", "price_cap"]
 
     def form_valid(self, form):
         # get User object of the logged in account
@@ -282,6 +282,18 @@ class RideUpdate(UpdateView):
             ride.save()
             return HttpResponseRedirect("/ride/{}".format(ride.pk))
         raise ValidationError("Must be logged in to the right account to update your ride.")
+
+class RideDelete(DeleteView):
+    model = Ride
+
+    def delete(self, request, *args, **kwargs):
+        # get User object of the logged in account
+        user = User.objects.get(pk = request.user.id)
+        ride = self.get_object()
+        if (user and user.id == ride.rider_key and ride.driver_key != None):
+            ride.delete()
+            return HttpResponseRedirect("/rides")
+        raise ValidationError("You cannot delete other people's rides.")
 
 
 ####################### DEFAULT #######################
