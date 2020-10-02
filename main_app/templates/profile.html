@@ -15,33 +15,30 @@
     <p>Last Name: {{ profile_user.last_name }}</p>
     <p>Username: {{ profile_user.username }}</p>
     <p>Email: {{ profile_user.email }}</p>
-    
-    {% if personal_profile %}
 
-        <br /><br /><br /><br />
-        <h2>See Rider and Driver Info</h2>
-    
-        {% if rider_register %}
-            <form action="/profile/{{ profile_user.username }}/r" method="GET">
-                <input type="submit" value="See Rider Profile">
-            </form>
-        {% else %}
-            <form action="/rider/create" method="GET">
-                <input type="submit" value="Setup Rider Profile">
-            </form>
-        {% endif %}
+    <br /><br /><br />
+    <h2>See Rider and Driver Info</h2>
 
-        {% if driver_register %}
-            <form action="/profile/{{ profile_user.username }}/d" method="GET">
-                <input type="submit" value="See Driver Profile">
-            </form>
-        {% else %}
-            <form action="/driver/create" method="GET">
-                <input type="submit" value="Setup Driver Profile">
-            </form>
-        {% endif %}
-
-        <br /><br /><br />
+    {% if rider_register %}
+        <form action="/profile/{{ profile_user.username }}/r" method="GET">
+            <input type="submit" value="See Rider Profile">
+        </form>
+    {% elif personal_profile %}
+        <form action="/rider/create" method="GET">
+            <input type="submit" value="Setup Rider Profile">
+        </form>
     {% endif %}
+
+    {% if driver_register %}
+        <form action="/profile/{{ profile_user.username }}/d" method="GET">
+            <input type="submit" value="See Driver Profile">
+        </form>
+    {% elif personal_profile %}
+        <form action="/driver/create" method="GET">
+            <input type="submit" value="Setup Driver Profile">
+        </form>
+    {% endif %}
+
+    <br /><br /><br />
 
 {% endblock %}

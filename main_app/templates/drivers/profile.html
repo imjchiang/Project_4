@@ -15,7 +15,7 @@
     <p>Username: {{ profile_user.username }}</p>
     <p>Email: {{ profile_user.email }}</p>
 
-    <br /><br /><br /><br />
+    <br /><br /><br />
 
     <h2>{{ profile_user.first_name }}'s Stats</h2>
     <p>Safety Rating: {{ driver_prof.safety_rating }}</p>
@@ -24,7 +24,7 @@
     <p>Total Trips: {{ driver_prof.total_trips }}</p>
     <p>No Shows: {{ driver_prof.no_show }}</p>
     
-    <br /><br /><br /><br />
+    <br /><br /><br />
 
     <h2>{{ profile_user.first_name }}'s Vehicle and License Info</h2>
     <p>License Expiration Date: {{ driver_prof.license_expiration }}</p>
@@ -42,7 +42,7 @@
         <a href="{% url "driver_update" driver_prof.id %}">Update Details</a>
     {% endif %}
     
-    <br /><br /><br /><br />
+    <br /><br /><br />
     
     <h2>Rides Given</h2>
     <!-- List of rides here, need to send data from views also -->

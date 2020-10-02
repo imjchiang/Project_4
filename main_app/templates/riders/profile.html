@@ -15,14 +15,14 @@
     <p>Username: {{ profile_user.username }}</p>
     <p>Email: {{ profile_user.email }}</p>
 
-    <br /><br /><br /><br />
+    <br /><br /><br />
 
     <h2>{{ profile_user.first_name }}'s Stats</h2>
     <p>Rating: {{ rider_prof.rating }}</p>
     <p>No Shows: {{ rider_prof.no_show }}</p>
     <p>Total Trips: {{ rider_prof.total_trips }}</p>
 
-    <br /><br /><br /><br />
+    <br /><br /><br />
 
     {% if rider_prof.total_trips > 0 %}
         <h2>Rides Taken</h2>
@@ -38,7 +38,7 @@
                 <p>Status: Driver Found</p>
             {% endif %}
         {% endfor %}
-        <br /><br /><br /><br />
+        <br /><br /><br />
     {% endif %}
 
     {% if pending_rides %}
