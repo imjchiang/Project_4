@@ -2,7 +2,10 @@
 
 {% block content %}
 
+    <br /><br />
+
     <h1>Would you like to sign up as a rider?</h1>
+    <br />
     <form action="" method="POST">
         {% csrf_token %}
         <table>
@@ -13,5 +16,7 @@
     <form action="/" method="GET">
         <input type="submit" value="Cancel">
     </form>
+
+    <br /><br /><br />
 
 {% endblock %}
