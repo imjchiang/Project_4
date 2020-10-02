@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -218,7 +220,9 @@ class DriverUpdate(UpdateView):
 
 def all_rides(request):
     rides = Ride.objects.all()
-    return render(request, "rides/rides.html", {"rides": rides})
+    users = User.objects.all()
+    current_time = datetime.datetime.now()
+    return render(request, "rides/rides.html", {"rides": rides, "users": users, "current_time": current_time})
 
 def show_ride(request, pk):
     ride = Ride.objects.get(pk = pk)
