@@ -1,4 +1,5 @@
 import datetime
+from datetime import datetime
 
 from django import forms
 
@@ -118,6 +119,14 @@ def rider_profile(request, username):
     rider_prof = Rider.objects.get(user_key = profile_user.id)
     user = User.objects.get(pk = request.user.id)
 
+    all_rides = Ride.objects.filter(rider_key = profile_user)
+    total_rides = 0
+    for each_ride in all_rides:
+        # if each_ride.pickup_time < datetime.now():
+            total_rides += 1
+
+    Rider.objects.filter(user_key = profile_user).update(total_trips = total_rides)
+
     # if someone is accessing their own profile
     if user.username == username:
         personal_profile = True
@@ -147,7 +156,6 @@ class RiderCreate(CreateView):
             rider.save()
             return HttpResponseRedirect("/profile/{}/r".format(self.request.user.username))
             # [possible alternative] return super(RiderCreate, self).form_valid(form)
-        
 
 ####################### DRIVER #######################
 
@@ -283,17 +291,14 @@ class RideUpdate(UpdateView):
             return HttpResponseRedirect("/ride/{}".format(ride.pk))
         raise ValidationError("Must be logged in to the right account to update your ride.")
 
-class RideDelete(DeleteView):
-    model = Ride
+def delete_ride(request, pk):
+    # get Ride object
+    ride = Ride.objects.get(pk = pk)
 
-    def delete(self, request, *args, **kwargs):
-        # get User object of the logged in account
-        user = User.objects.get(pk = request.user.id)
-        ride = self.get_object()
-        if (user and user.id == ride.rider_key and ride.driver_key != None):
-            ride.delete()
-            return HttpResponseRedirect("/rides")
-        raise ValidationError("You cannot delete other people's rides.")
+    if (ride.rider_key_id == request.user.id and ride.driver_key == None):
+        ride.delete()
+        return HttpResponseRedirect("/rides")
+    raise ValidationError("You cannot delete other people's rides or delete rides a driver has accepted.")
 
 
 ####################### DEFAULT #######################
