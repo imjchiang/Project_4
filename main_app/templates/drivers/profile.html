@@ -47,7 +47,18 @@
     <br /><br /><br />
     
     <h2>Rides Given</h2>
-    <!-- List of rides here, need to send data from views also -->
+    <div class="ride-cards">
+        {% for each_ride in given_rides %}
+            <div class="card text-white mb-3" style="max-width: 18rem;">
+                <a class="ride" href="/ride/{{ each_ride.pk }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ each_ride.rider_key.first_name }}'s Ride</h5>
+                        <p class="card-text">{{ each_ride.pickup_time }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
 
     <br /><br /><br />
 

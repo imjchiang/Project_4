@@ -17,22 +17,25 @@
 
     <h2>All Rides</h2>
 
-    {% for ride in rides %}
-        <a href="/ride/{{ ride.pk }}">
-            {% for user in users %}
-                {% if ride.rider_key.id == user.id %}
-                    <p>{{ user.first_name }}'s Trip</p>
-                {% endif %}
-            {% endfor %}
-            {% if ride.driver_key == None %}
-                <p>Status: Need a Driver</p>
-            {% elif ride.pickup_time <= current_time %}
-                <p>Status: Completed</p>
-            {% elif ride.driver_key != None %}
-                <p>Status: Driver Found</p>
-            {% endif %}
-        </a>
-    {% endfor %}
+    <div class="ride-cards">
+        {% for ride in rides %}
+            <div class="card text-white mb-3" style="max-width: 18rem;">
+                <a class="ride" href="/ride/{{ ride.pk }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ ride.rider_key.first_name }}'s Ride</h5>
+                        <p class="card-text">{{ each_ride.pickup_time }}</p>
+                        {% if ride.driver_key == None %}
+                            <p class="card-text">Status: Need a Driver</p>
+                        {% elif ride.pickup_time <= current_time %}
+                            <p class="card-text">Status: Completed</p>
+                        {% elif ride.driver_key != None %}
+                            <p class="card-text">Status: Driver Found</p>
+                        {% endif %}
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
 
     <br /><br /><br />
 
