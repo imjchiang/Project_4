@@ -302,7 +302,7 @@ class RideUpdate(UpdateView):
         # get User object of the logged in account
         user = User.objects.get(pk = self.request.user.id)
         ride = form.save(commit = False)
-        if (user and user.id == ride.rider_key):
+        if (user and user == ride.rider_key):
             ride.save()
             return HttpResponseRedirect("/ride/{}".format(ride.pk))
         raise ValidationError("Must be logged in to the right account to update your ride.")
