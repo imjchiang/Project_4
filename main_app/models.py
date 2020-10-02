@@ -42,8 +42,8 @@ class Driver(models.Model):
         return self.name
 
 class Ride(models.Model):
-    start_location = models.CharField(max_length = 300, default = "N/A")
-    destination = models.CharField(max_length = 300, default = "N/A")
+    start_location = models.CharField(max_length = 300, default = None)
+    destination = models.CharField(max_length = 300, default = None)
     pickup_time = models.DateTimeField()
     reviewed = models.BooleanField(default = False)
     price_cap = models.IntegerField(default = None)
