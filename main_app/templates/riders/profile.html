@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
+    <br /><br />
+
     <h1>{{ profile_user.first_name }} {{ profile_user.last_name }}'s Rider Profile</h1>
             
     <hr />
+
+    <br /><br />
 
     <h2>{{ profile_user.first_name }}'s Info</h2>
     <p>First Name: {{ profile_user.first_name }}</p>
@@ -11,14 +15,14 @@
     <p>Username: {{ profile_user.username }}</p>
     <p>Email: {{ profile_user.email }}</p>
 
-    <hr />
+    <br /><br /><br /><br />
 
     <h2>{{ profile_user.first_name }}'s Stats</h2>
     <p>Rating: {{ rider_prof.rating }}</p>
     <p>No Shows: {{ rider_prof.no_show }}</p>
     <p>Total Trips: {{ rider_prof.total_trips }}</p>
 
-    <hr />
+    <br /><br /><br /><br />
 
     {% if rider_prof.total_trips > 0 %}
         <h2>Rides Taken</h2>
@@ -34,7 +38,7 @@
                 <p>Status: Driver Found</p>
             {% endif %}
         {% endfor %}
-        <hr />
+        <br /><br /><br /><br />
     {% endif %}
 
     {% if pending_rides %}
@@ -52,5 +56,5 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-
+    <br /><br /><br />
 {% endblock %}
