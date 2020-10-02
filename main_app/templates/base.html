@@ -12,7 +12,9 @@
         {% if user.is_authenticated %}
         <span><a href="/">Ride or Share</a></span>
         <span> | </span>
-        <span><a href="{% url 'profile' user.username %}">Hello, {{ user.username }}!</a></span>
+        <span><a href="/rides">All Rides</a></span>
+        <span> | </span>
+        <span><a href="{% url 'profile' user.username %}">{{ user.username }}'s Profile</a></span>
         <span> | </span>
         <span><a href="{% url 'logout' %}">Logout</a></span>
         <span> | </span>
