@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
+    <br /><br />
+
     <h1>Ride or Share</h1>
     <hr />
+
+    <br /><br />
 
     <h2>Ride Info</h2>
 
@@ -23,7 +27,7 @@
         <p>Driver: {{ driver.first_name }}</p>
     {% endif %}
 
-    <hr />
+    <br /><br /><br />
 
     <h2>Update or Cancel Your Ride</h2>
     {% if ride_update and ride.driver_key == None %}
@@ -38,5 +42,7 @@
     {% elif ride_update == False %}
         <p>Please sign in to alter ride details.</p>
     {% endif %}
+
+    <br /><br /><br />
 
 {% endblock %}

@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 
+    <br /><br />
+
     <h1>Ride or Share</h1>
     <hr />
+
+    <br /><br />
 
     <h2>Request for a Ride</h2>
     <form action="/ride/create">
         <input type="submit" value="Create a Ride">
     </form>
 
-    <hr />
+    <br /><br /><br />
 
     <h2>All Rides</h2>
 
@@ -17,17 +21,19 @@
         <a href="/ride/{{ ride.pk }}">
             {% for user in users %}
                 {% if ride.rider_key.id == user.id %}
-                    <p>{{ user.first_name }}' Trip</p>
+                    <p>{{ user.first_name }}'s Trip</p>
                 {% endif %}
             {% endfor %}
+            {% if ride.driver_key == None %}
+                <p>Status: Need a Driver</p>
+            {% elif ride.pickup_time <= current_time %}
+                <p>Status: Completed</p>
+            {% elif ride.driver_key != None %}
+                <p>Status: Driver Found</p>
+            {% endif %}
         </a>
-        {% if ride.driver_key == None %}
-            <p>Status: Need a Driver</p>
-        {% elif ride.pickup_time <= current_time %}
-            <p>Status: Completed</p>
-        {% elif ride.driver_key != None %}
-            <p>Status: Driver Found</p>
-        {% endif %}
     {% endfor %}
+
+    <br /><br /><br />
 
 {% endblock %}
