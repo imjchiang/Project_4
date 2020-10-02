@@ -83,6 +83,18 @@ input
     border-color: rgb(164, 255, 240);
 }
 
+table
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* th
+{
+    padding: 0;
+} */
+
 footer
 {
     color: rgb(196, 196, 196);
